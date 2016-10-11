@@ -5,16 +5,16 @@ namespace App\Controllers;
 use App\Components\Register;
 use App\Core\View;
 use App\Models\User;
+use App\Components\Auth;
 
 class UserController
 {
 
     public function actionIndex() {
-       
-        $user = User::findUser();
-
-       if( !empty($user) ) {
-           header("Location: /");
+        
+       if(isset($_POST['submit']) && User::findUser()) {
+           
+          header("Location: /admin");
        } else {
            $view = new View;
            $view->error = !empty($_POST) ? 'Логин или пароль введены неверно' : ''; 
@@ -36,6 +36,8 @@ class UserController
 
             $user = new User();
             $user->registerUser();
+                       
+            header("Location: /user");
 
         } else {
             $view = new View;
@@ -43,6 +45,11 @@ class UserController
             $view->render('/App/views/user/register.php', $view->errors);
         }
         
+    }
+     
+    public function actionLogout() {
+        Auth::logout();
+        header("Location: /user");
     }
     
 }

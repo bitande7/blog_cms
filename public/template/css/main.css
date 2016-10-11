@@ -486,5 +486,9 @@ footer ul.social_profiles li a,
 .category {
 	padding-left: 30px;
 	list-style: none;
+
 }
 
+.category   a {
+	color: red;
+}

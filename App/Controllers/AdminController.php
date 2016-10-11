@@ -6,12 +6,14 @@ use App\Core\Router;
 use App\Models\News;
 use App\Models\Admin;
 use App\Models\Category;
+use App\Components\Auth;
+
 
 class AdminController
 {
 
     public function actionIndex() {
-
+        
         $view = new View();
         $view->render('/App/views/admin/index.php' );
 

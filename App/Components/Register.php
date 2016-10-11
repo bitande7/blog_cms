@@ -2,6 +2,8 @@
 
 namespace App\Components;
 
+use App\Models\Db;
+
 class Register {
 
     public static $errors = [];
@@ -22,6 +24,12 @@ class Register {
 
         if(!preg_match($pattern ,$email)) {
             self::$errors[] = 'Поле E-mail пустое либо содержит недопустимые символы.';
+        }
+
+        $query = "SELECT user.email FROM user WHERE email = :email";
+
+        if( Db::getInstance()->queryOne($query, static::class, [':email' => $email]) ) {
+            self::$errors[] = 'Пользователь с этим E-mail адесом уже зарегистрирован';
         }
 
     }

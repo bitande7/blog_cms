@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Components\Auth;
+
 class User extends ActiveRecord{
 
     const TABLE = 'user';
@@ -18,11 +20,11 @@ class User extends ActiveRecord{
                 
         $this->name = $_POST['name'];
         $this->email = $_POST['email'];
-        $this->password = $_POST['password'];
+        $this->password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
         self::insert();
 
-        header("Location: /user");
+       
 
 //        $last_id = Db::getInstance();
 //        $id = $last_id::$db->lastInsertId();
@@ -30,8 +32,21 @@ class User extends ActiveRecord{
     }
 
     public static function findUser() {
-        $query = "SELECT user.email, user.password FROM ". static::TABLE. " WHERE email = :email AND password = :password";
-        return Db::getInstance()->queryOne($query, static::class, [':email' => $_POST['email'], ':password' => $_POST['password']]);
+
+            $query = "SELECT user.email, user.name, user.password FROM ". static::TABLE. " WHERE email = :email";
+            $user = Db::getInstance()->queryOne($query, static::class, [':email' => $_POST['email']]);
+
+            if( password_verify ( $_POST['password'] ,  $user->password ) ) {
+
+                Auth::login($user->name);
+
+                return true;
+            } else {
+                return false;
+            }
+
+        
+
     }
 
 }

@@ -19,7 +19,7 @@
                 <h1 class="title">
                     <a href="/news/<?php echo $post->id; ?>"><?php echo $post->title; ?></a>
                 </h1>
-                <p><strong>Автор: </strong><?php echo $post->login; ?></p>
+                <p><strong>Автор: </strong><?php echo $post->name; ?></p>
                 <p><?php echo $post->text; ?></p>
                 <p><em><?php echo $post->date; ?></em></p>
                 <a class="read_more" href="/news/<?php echo $post->id; ?>">Continue Reading <i class="read_more_arrow"></i> </a>

@@ -16,7 +16,7 @@
                 <h1 class="title">
                     <?php echo $data['post']->title; ?>
                 </h1>
-                <p><strong>Автор: </strong><?php echo $data['post']->login; ?></p>
+                <p><strong>Автор: </strong><?php echo $data['post']->name; ?></p>
                 <p><?php echo $data['post']->text; ?></p>
                 <p align="right"><em><?php echo $data['post']->date; ?></em></p>
 

@@ -1,8 +1,6 @@
 <?php
 
-//$category = Db::getInstance()->query('SELECT * FROM category');
-//
-//var_dump($category);
+$category = App\Models\Db::getInstance()->query('SELECT * FROM category');
 
 ?>
 <aside class="sidebar">
@@ -10,10 +8,16 @@
 				<h3 class="widget-title">Catefories</h3>
 				<div class="textwidget">
 					<ul class="category">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
+
+						<?php
+
+						foreach ($category as $menu_item) {
+							echo '<li><a href="" >'.$menu_item->title.'</a></li>';
+						}
+
+						?>
+
+
 					</ul>
 				</div>
 			</section>

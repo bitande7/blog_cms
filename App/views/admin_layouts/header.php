@@ -1,3 +1,13 @@
+<?php
+use App\Components\Auth;
+
+if(!$_SESSION['is_logged']) {
+    header("Location: /user");
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +60,7 @@
 
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?=$_SESSION['user_name'] ?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -59,7 +69,7 @@
 
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="/user/logout/"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
@@ -133,3 +143,4 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+

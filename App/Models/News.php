@@ -18,12 +18,12 @@ class News extends ActiveRecord {
     public $img;
 
     public static function getAll(){
-        $query = "SELECT news.*, user.login FROM news LEFT JOIN user ON news.author_id = user.id ORDER BY id DESC ";
+        $query = "SELECT news.*, user.name FROM news LEFT JOIN user ON news.author_id = user.id ORDER BY id DESC ";
         return Db::getInstance()->query($query, self::class);
     }
 
     public static function getOne($id){
-        $query = "SELECT news.*, user.login FROM news LEFT JOIN user ON news.author_id = user.id WHERE news.id = :id";
+        $query = "SELECT news.*, user.name FROM news LEFT JOIN user ON news.author_id = user.id WHERE news.id = :id";
         $query2 = "SELECT * FROM comments WHERE news_id = :id";
         $post = Db::getInstance()->queryOne($query, self::class, [':id' => $id]);
         $comments = Db::getInstance()->queryOne($query2, self::class, [':id' => $id] );
@@ -37,7 +37,7 @@ class News extends ActiveRecord {
         $offset =  Router::$params['page'] * Paginator::$records_per_page - Paginator::$records_per_page ;
         $count = Paginator::$records_per_page;
 
-        $query = "SELECT DISTINCT news.id, news.title, news.date, news.author_id, user.login, category.title AS category,
+        $query = "SELECT DISTINCT news.id, news.title, news.date, news.author_id, user.name, category.title AS category,
                 (SELECT COUNT(id) FROM `comments` WHERE news_id = news.id) AS comments
                 FROM news
                 LEFT JOIN user ON news.author_id = user.id
